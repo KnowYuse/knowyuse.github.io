@@ -1,37 +1,738 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+  
 
 
-{% block content %}
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.0" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="消息队列," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1 基础概念1.1 什么是Exactly-once(精确一次)语义在分布式系统中，任何节点都有可能出现异常甚至宕机。在 消息队列中也一样，当 Producer 在生产消息时，可能会发生 Broker 宕机不可用，或者网络突然中断等异常情况。根据在发生异常时 Producer 处理消息的方式，系统可以具备以下三种消息语义。 1.1.1 At-least-once(至少一次)语义Producer 通过">
+<meta property="og:type" content="article">
+<meta property="og:title" content="消息队列学习笔记">
+<meta property="og:url" content="https://blog.knowyuse.top/2021/10/25/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="ky的学习笔记">
+<meta property="og:description" content="1 基础概念1.1 什么是Exactly-once(精确一次)语义在分布式系统中，任何节点都有可能出现异常甚至宕机。在 消息队列中也一样，当 Producer 在生产消息时，可能会发生 Broker 宕机不可用，或者网络突然中断等异常情况。根据在发生异常时 Producer 处理消息的方式，系统可以具备以下三种消息语义。 1.1.1 At-least-once(至少一次)语义Producer 通过">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ftp.knowyuse.top/j3gficicyOvatVXIXkwUJKf2Aeicx3wiaJpM2R2zibAd9FvMBUmzAkCLINyycgrTUw12Tx7P3umdxQvNePnFr50VicJg.jpg">
+<meta property="og:image" content="https://ftp.knowyuse.top/j3gficicyOvatVXIXkwUJKf2Aeicx3wiaJpMHIwKhrwaN1wyPdSgh0HAuYRzYPf8zWmOicWu8V6C1DG0k395ribHtydQ.jpg">
+<meta property="og:image" content="https://ftp.knowyuse.top/j3gficicyOvatVXIXkwUJKf2Aeicx3wiaJpMFjJttO64Gycvdru0Fniaicw8ey5j16gnWUiczfcibvgxWoTowlSt9WwVmQ.jpg">
+<meta property="og:image" content="https://ftp.knowyuse.top/j3gficicyOvatVXIXkwUJKf2Aeicx3wiaJpMbHbQL09Tml7licJFibG4EmyufWMMrL5I1K8ibGKQLMMcJv38XJyhWdj9g.jpg">
+<meta property="og:image" content="https://ftp.knowyuse.top/1154e434-bf79-4d76-99f8-9ba3edf5d077.jpg">
+<meta property="article:published_time" content="2021-10-25T06:12:00.000Z">
+<meta property="article:modified_time" content="2021-10-31T13:09:44.878Z">
+<meta property="article:author" content="knowyuse">
+<meta property="article:tag" content="消息队列">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ftp.knowyuse.top/j3gficicyOvatVXIXkwUJKf2Aeicx3wiaJpM2R2zibAd9FvMBUmzAkCLINyycgrTUw12Tx7P3umdxQvNePnFr50VicJg.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    version: '6.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://blog.knowyuse.top/2021/10/25/消息队列学习笔记/"/>
+
+
+
+
+
+  <title>消息队列学习笔记 | ky的学习笔记</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ky的学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
 
   <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.knowyuse.top/2021/10/25/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ky的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">消息队列学习笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-10-25T14:12:00+08:00">2021-10-25</time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/" itemprop="url" rel="index">
+                    <span itemprop="name">中间件</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-基础概念"><a href="#1-基础概念" class="headerlink" title="1 基础概念"></a>1 基础概念</h2><h3 id="1-1-什么是Exactly-once-精确一次-语义"><a href="#1-1-什么是Exactly-once-精确一次-语义" class="headerlink" title="1.1 什么是Exactly-once(精确一次)语义"></a>1.1 什么是Exactly-once(精确一次)语义</h3><p>在分布式系统中，任何节点都有可能出现异常甚至宕机。在 消息队列中也一样，当 Producer 在生产消息时，可能会发生 Broker 宕机不可用，或者网络突然中断等异常情况。根据在发生异常时 Producer 处理消息的方式，系统可以具备以下三种消息语义。</p>
+<h4 id="1-1-1-At-least-once-至少一次-语义"><a href="#1-1-1-At-least-once-至少一次-语义" class="headerlink" title="1.1.1 At-least-once(至少一次)语义"></a>1.1.1 At-least-once(至少一次)语义</h4><p>Producer 通过接收 Broker 的 ACK(消息确认)通知来确保消息成功写入 Topic。然而，当 Producer 接收 ACK 通知超时，或者收到 Broker 出错信息时，会尝试重新发送消息。如果 Broker 正好在成功把消息写入到 Topic，但还没有给 Producer 发送 ACK 时宕机，Producer 重新发送的消息会被再次写入到 Topic，最终导致消息被重复分发至 Consumer。即：<strong>消息不会丢失，但有可能被重复发送</strong>。</p>
+<h4 id="1-1-2-At-most-once-最多一次-语义"><a href="#1-1-2-At-most-once-最多一次-语义" class="headerlink" title="1.1.2 At-most-once(最多一次)语义"></a>1.1.2 At-most-once(最多一次)语义</h4><p>当 Producer 在接收 ACK 超时，或者收到 Broker 出错信息时不重发消息，那就有可能导致这条消息丢失，没有写入到 Topic 中，也不会被 Consumer 消费到。在某些场景下，为了避免发生重复消费，我们可以容许消息丢失的发生。即：<strong>消息可能会丢失，但绝不会被重复发送</strong>。</p>
+<h4 id="1-1-3-Exactly-once-精确一次-语义"><a href="#1-1-3-Exactly-once-精确一次-语义" class="headerlink" title="1.1.3 Exactly-once(精确一次)语义"></a>1.1.3 Exactly-once(精确一次)语义</h4><p><strong>Exactly-once 语义保证了即使 Producer 多次发送同一条消息到服务端，服务端也仅仅会记录一次。</strong> Exactly-once 语义是最可靠的，同时也是最难理解的。Exactly-once 语义需要消息队列服务端，消息生产端和消费端应用三者的协同才能实现。比如，当消费端应用成功消费并且 ACK 了一条消息之后，又把消费位点回滚到之前的一个消息 ID，那么从那个消息 ID 往后的所有消息都会被消费端应用重新消费到。即：<strong>消息不会丢失，也不会被重复发送</strong>。</p>
+<h2 id="2-Kafka"><a href="#2-Kafka" class="headerlink" title="2 Kafka"></a>2 Kafka</h2><p>Apache Kafka 是由 Apache 软件基金会开发的一个开源消息系统项目，由 Scala 写成。Kafka 最初是由 LinkedIn 开发，并于 2011 年初开源。2012 年 10 月从 Apache Incubator 毕业。该项目的目标是为处理实时数据提供一个统一、高通量、低等待的平台。Kafka 是一个分布式的、分区的、多复本的日志提交服务。它通过一种独一无二的设计提供了一个消息系统的功能，其整体架构图如下所示。</p>
+<div align=center><img src="https://ftp.knowyuse.top/j3gficicyOvatVXIXkwUJKf2Aeicx3wiaJpM2R2zibAd9FvMBUmzAkCLINyycgrTUw12Tx7P3umdxQvNePnFr50VicJg.jpg" height=400 width=600></div>
+<center style="color:#000;">kafka整体架构图</center>
+
+<h2 id="3-RocketMQ"><a href="#3-RocketMQ" class="headerlink" title="3 RocketMQ"></a>3 RocketMQ</h2><p>Apache RocketMQ 是一个分布式消息和流媒体平台，具有低延迟、强一致、高性能和可靠性、万亿级容量和灵活的可扩展性。它有借鉴 Kafka 的设计思想，但不是 kafka 的拷贝，其整体架构图如下所示。</p>
+<div align=center><img src="https://ftp.knowyuse.top/j3gficicyOvatVXIXkwUJKf2Aeicx3wiaJpMHIwKhrwaN1wyPdSgh0HAuYRzYPf8zWmOicWu8V6C1DG0k395ribHtydQ.jpg" height=400 width=600></div>
+<center style="color:#000;">RocketMQ架构图</center>
+
+<h2 id="4-Pulsar"><a href="#4-Pulsar" class="headerlink" title="4 Pulsar"></a>4 Pulsar</h2><p>Apache Pulsar 是 Apache 软件基金会顶级项目，是下一代云原生分布式消息流平台，集消息、存储、轻量化函数式计算为一体，采用计算与存储分离架构设计，支持多租户、持久化存储、多机房跨区域数据复制，具有强一致性、高吞吐、低延时及高可扩展性等流数据存储特性，被看作是云原生时代实时消息流传输、存储和计算最佳解决方案，其整体架构图如下所示。</p>
+<div align=center><img src="https://ftp.knowyuse.top/j3gficicyOvatVXIXkwUJKf2Aeicx3wiaJpMFjJttO64Gycvdru0Fniaicw8ey5j16gnWUiczfcibvgxWoTowlSt9WwVmQ.jpg" height=400 width=600></div>
+<center style="color:#000;">Pulsar架构图</center>
+
+<h2 id="5-消息队列背后的设计思想"><a href="#5-消息队列背后的设计思想" class="headerlink" title="5 消息队列背后的设计思想"></a>5 消息队列背后的设计思想</h2><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/k8sA6XPrp80JiNbuwKaVfg">参考链接</a></p>
+<h2 id="6-浅谈-RocketMQ、Kafka、Pulsar-的事务消息"><a href="#6-浅谈-RocketMQ、Kafka、Pulsar-的事务消息" class="headerlink" title="6 浅谈 RocketMQ、Kafka、Pulsar 的事务消息"></a>6 浅谈 RocketMQ、Kafka、Pulsar 的事务消息</h2><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/XslSlWWD1oSZMOz35sUTVA">参考链接</a></p>
+<h3 id="6-1-分布式事务"><a href="#6-1-分布式事务" class="headerlink" title="6.1 分布式事务"></a>6.1 分布式事务</h3><p>分布式事务是指事务的参与者、支持事务的服务器、资源服务器以及事务管理器分别位于不同的分布式系统的不同节点之上。分布式事务通常用于在分布式系统中保证不同节点之间的数据一致性。</p>
+<p>解决方案一般有以下几种：</p>
+<ul>
+<li>XA(2PC/3PC)</li>
+<li>TCC</li>
+<li>消息事务</li>
+</ul>
+<p>所谓的消息事务就是基于消息队列的两阶段提交，本质上是对消息队列的一种特殊利用，它是将本地事务和发消息放在了一个分布式事务里，保证要么本地操作成功成功并且对外发消息成功，要么两者都失败。</p>
+<p>基于消息队列的两阶段提交往往用在高并发场景下，将一个分布式事务拆成一个消息事务（A 系统的本地操作+发消息）+B 系统的本地操作，其中 B 系统的操作由消息驱动，只要消息事务成功，那么 A 操作一定成功，消息也一定发出来了，这时候 B 会收到消息去执行本地操作，如果本地操作失败，消息会重投，直到 B 操作成功，这样就变相地实现了 A 与 B 的分布式事务。原理如下：</p>
+<div align=center><img src="https://ftp.knowyuse.top/j3gficicyOvatVXIXkwUJKf2Aeicx3wiaJpMbHbQL09Tml7licJFibG4EmyufWMMrL5I1K8ibGKQLMMcJv38XJyhWdj9g.jpg" height=400 width=600></div>
+<center style="color:#000;">消息事务示意图</center>
+
+<p>虽然上面的方案能够完成 A 和 B 的操作，但是 A 和 B 并不是强一致的，而是**最终一致(Eventually consistent)**的。</p>
+<h3 id="6-2-RocketMQ-的事务消息"><a href="#6-2-RocketMQ-的事务消息" class="headerlink" title="6.2 RocketMQ 的事务消息"></a>6.2 RocketMQ 的事务消息</h3><p>RocketMQ 采用了 2PC 的思想来实现了提交事务消息，同时增加一个补偿逻辑来处理二阶段超时或者失败的消息，流程如下图所示：</p>
+<div align=center><img src="https://ftp.knowyuse.top/1154e434-bf79-4d76-99f8-9ba3edf5d077.jpg" height=400 width=600></div>
+<center style="color:#000;">RocketMQ事务消息</center>
+
+<h3 id="6-3-Kafka-的事务消息"><a href="#6-3-Kafka-的事务消息" class="headerlink" title="6.3 Kafka 的事务消息"></a>6.3 Kafka 的事务消息</h3><p>Kafka 的事务基本上是配合其幂等机制来实现 Exactly-once语义的。</p>
+<h3 id="6-4-Pulsar-的事务消息"><a href="#6-4-Pulsar-的事务消息" class="headerlink" title="6.4 Pulsar 的事务消息"></a>6.4 Pulsar 的事务消息</h3><p>Pulsar 这里提供的事务区别于 RocketMQ 中 2PC 那种事务的实现方式，没有本地事务回查的机制，更类似于 Kafka 的事务实现机制。Apache Pulsar 中的事务主要用来保证类似 Pulsar Functions 这种流计算场景中 Exactly-once 语义的实现。</p>
+<h3 id="6-5-结论"><a href="#6-5-结论" class="headerlink" title="6.5 结论"></a>6.5 结论</h3><p>RocketMQ 和 Kafka/Pulsar 的事务消息实用的场景是不一样的。</p>
+<p>RocketMQ 中的事务，它解决的问题是，确保执行本地事务和发消息这两个操作，要么都成功，要么都失败。并且 RocketMQ 增加了一个事务反查的机制，来尽量提高事务执行的成功率和数据一致性。</p>
+<p>Kafka 中的事务，它解决的问题是，确保在一个事务中发送的多条消息，要么都成功，要么都失败。（这里面的多条消息不一定要在同一个主题和分区中，可以是发往多个主题和分区的消息）当然也可以在 kafka 事务执行过程中开启本地事务来实现类似 RocketMQ 事务消息的效果，但是 Kafka 是没有事务消息反查机制的，它是直接抛出异常的，用户可以根据异常来实现自己的重试等方法保证事务正常运行。</p>
+<p>它们的共同点就是：都是通过两阶段提交来实现事务的，事务消息都保存在单独的主题上。不同的地方就是 RocketMQ 是通过“半消息”来实现的，kafka 是直接将消息发送给对应的 topic，通过客户端来过滤实现的。而且它们两个使用的场景区别是非常之大的，RockteMQ 主要解决的是基于本地事务和消息的数据一致性，而 Kafka 的事务则是用于实现它的 Exactly-once 机制，应用于实时流计算的场景中。</p>
+<p>Pulsar 的事务消息和 Kafka 应用场景和语义类似，只是由于底层实现机制有差别，在一些细节上有区别。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="tag"># 消息队列</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/10/25/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="next" title="Docker学习笔记">
+                <i class="fa fa-chevron-left"></i> Docker学习笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
 
     <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+      
     </div>
   </div>
 
-{% endblock %}
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+          </div>
+          
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">1 基础概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E4%BB%80%E4%B9%88%E6%98%AFExactly-once-%E7%B2%BE%E7%A1%AE%E4%B8%80%E6%AC%A1-%E8%AF%AD%E4%B9%89"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 什么是Exactly-once(精确一次)语义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-1-At-least-once-%E8%87%B3%E5%B0%91%E4%B8%80%E6%AC%A1-%E8%AF%AD%E4%B9%89"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1.1 At-least-once(至少一次)语义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-2-At-most-once-%E6%9C%80%E5%A4%9A%E4%B8%80%E6%AC%A1-%E8%AF%AD%E4%B9%89"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.1.2 At-most-once(最多一次)语义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-3-Exactly-once-%E7%B2%BE%E7%A1%AE%E4%B8%80%E6%AC%A1-%E8%AF%AD%E4%B9%89"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.1.3 Exactly-once(精确一次)语义</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Kafka"><span class="nav-number">2.</span> <span class="nav-text">2 Kafka</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-RocketMQ"><span class="nav-number">3.</span> <span class="nav-text">3 RocketMQ</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Pulsar"><span class="nav-number">4.</span> <span class="nav-text">4 Pulsar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E8%83%8C%E5%90%8E%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3"><span class="nav-number">5.</span> <span class="nav-text">5 消息队列背后的设计思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E6%B5%85%E8%B0%88-RocketMQ%E3%80%81Kafka%E3%80%81Pulsar-%E7%9A%84%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF"><span class="nav-number">6.</span> <span class="nav-text">6 浅谈 RocketMQ、Kafka、Pulsar 的事务消息</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1"><span class="nav-number">6.1.</span> <span class="nav-text">6.1 分布式事务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-RocketMQ-%E7%9A%84%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF"><span class="nav-number">6.2.</span> <span class="nav-text">6.2 RocketMQ 的事务消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-Kafka-%E7%9A%84%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF"><span class="nav-number">6.3.</span> <span class="nav-text">6.3 Kafka 的事务消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-4-Pulsar-%E7%9A%84%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF"><span class="nav-number">6.4.</span> <span class="nav-text">6.4 Pulsar 的事务消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-5-%E7%BB%93%E8%AE%BA"><span class="nav-number">6.5.</span> <span class="nav-text">6.5 结论</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">knowyuse</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.0.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

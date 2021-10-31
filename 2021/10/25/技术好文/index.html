@@ -1,37 +1,688 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+  
 
 
-{% block content %}
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.0" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="消息队列," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1 基础概念1.1 什么是Exactly-once(精确一次)语义在分布式系统中，任何节点都有可能出现异常甚至宕机。在 消息队列中也一样，当 Producer 在生产消息时，可能会发生 Broker 宕机不可用，或者网络突然中断等异常情况。根据在发生异常时 Producer 处理消息的方式，系统可以具备以下三种消息语义。 1.1.1 At-least-once(至少一次)语义Producer 通过">
+<meta property="og:type" content="article">
+<meta property="og:title" content="消息队列学习笔记">
+<meta property="og:url" content="https://blog.knowyuse.top/2021/10/25/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="ky的学习笔记">
+<meta property="og:description" content="1 基础概念1.1 什么是Exactly-once(精确一次)语义在分布式系统中，任何节点都有可能出现异常甚至宕机。在 消息队列中也一样，当 Producer 在生产消息时，可能会发生 Broker 宕机不可用，或者网络突然中断等异常情况。根据在发生异常时 Producer 处理消息的方式，系统可以具备以下三种消息语义。 1.1.1 At-least-once(至少一次)语义Producer 通过">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ftp.knowyuse.top/j3gficicyOvatVXIXkwUJKf2Aeicx3wiaJpM2R2zibAd9FvMBUmzAkCLINyycgrTUw12Tx7P3umdxQvNePnFr50VicJg.jpg">
+<meta property="og:image" content="https://ftp.knowyuse.top/j3gficicyOvatVXIXkwUJKf2Aeicx3wiaJpMHIwKhrwaN1wyPdSgh0HAuYRzYPf8zWmOicWu8V6C1DG0k395ribHtydQ.jpg">
+<meta property="og:image" content="https://ftp.knowyuse.top/j3gficicyOvatVXIXkwUJKf2Aeicx3wiaJpMFjJttO64Gycvdru0Fniaicw8ey5j16gnWUiczfcibvgxWoTowlSt9WwVmQ.jpg">
+<meta property="og:image" content="https://ftp.knowyuse.top/j3gficicyOvatVXIXkwUJKf2Aeicx3wiaJpMbHbQL09Tml7licJFibG4EmyufWMMrL5I1K8ibGKQLMMcJv38XJyhWdj9g.jpg">
+<meta property="og:image" content="https://ftp.knowyuse.top/1154e434-bf79-4d76-99f8-9ba3edf5d077.jpg">
+<meta property="article:published_time" content="2021-10-25T06:12:00.000Z">
+<meta property="article:modified_time" content="2021-10-31T13:09:44.878Z">
+<meta property="article:author" content="knowyuse">
+<meta property="article:tag" content="消息队列">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ftp.knowyuse.top/j3gficicyOvatVXIXkwUJKf2Aeicx3wiaJpM2R2zibAd9FvMBUmzAkCLINyycgrTUw12Tx7P3umdxQvNePnFr50VicJg.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    version: '6.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://blog.knowyuse.top/2021/10/25/消息队列学习笔记/"/>
+
+
+
+
+
+  <title>技术好文 | ky的学习笔记</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ky的学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
 
   <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.knowyuse.top/2021/10/25/%E6%8A%80%E6%9C%AF%E5%A5%BD%E6%96%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ky的学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">技术好文</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-10-25T13:22:00+08:00">2021-10-25</time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-中间件"><a href="#1-中间件" class="headerlink" title="1. 中间件"></a>1. 中间件</h2><ul>
+<li><img align="left" src="https://img.shields.io/badge/read-finished-green"/><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/k8sA6XPrp80JiNbuwKaVfg">消息队列背后的设计思想</a></li>
+<li><img align="left" src="https://img.shields.io/badge/read-finished-green"/><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/XslSlWWD1oSZMOz35sUTVA">浅谈 RocketMQ、Kafka、Pulsar 的事务消息</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/-MXA4T-ei_U5ewXUNZ0QdQ">分布式消息队列</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/CWjPigYjnREPXTiIRXI6MA">MongoDB 基础浅谈</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/k8agEub4qmhm3kX_TpETrA">这篇Redis文章，图灵看了都说好</a></li>
+</ul>
+<h2 id="2-系统架构相关"><a href="#2-系统架构相关" class="headerlink" title="2.系统架构相关"></a>2.系统架构相关</h2><ul>
+<li><img align="left" src="https://img.shields.io/badge/read-finished-green"/><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/jLkuNy-M72vIVuFUFmF2NQ">弹性伸缩</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/mUF0AEncu3T2yDqKyt-0Ow">Kubernetes 入门&amp;进阶实战</a></li>
+<li><img align="left" src="https://img.shields.io/badge/read-finished-green"/><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/STdtEcqTkQvtiSZnWpFevA">异地多活</a></li>
+</ul>
+<h2 id="3-编程语言"><a href="#3-编程语言" class="headerlink" title="3. 编程语言"></a>3. 编程语言</h2><ul>
+<li><img align="left" src="https://img.shields.io/badge/read-finished-green"/><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/IBTq0EspL5tlLupPDwcbEQ">原来 Lamda 表达式是这样写的</a></li>
+</ul>
+<h2 id="4-网络相关"><a href="#4-网络相关" class="headerlink" title="4. 网络相关"></a>4. 网络相关</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/du7mFM1FbbR2m2pz8c7rdA">破玩意 | 用 HTTPS 传纸条</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/2z7NaoYEgbZ_hDxbcbMdYw">叮咚 | HTTPS 的分支和主干</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/k7hI4PTtZxB5mNciCU5Z3A">今天我抓了个 HTTPS 的包</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/10/25/Redis%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="prev" title="Redis学习笔记">
+                Redis学习笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
 
     <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+      
     </div>
   </div>
 
-{% endblock %}
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+          </div>
+          
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">1. 中间件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E7%9B%B8%E5%85%B3"><span class="nav-number">2.</span> <span class="nav-text">2.系统架构相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80"><span class="nav-number">3.</span> <span class="nav-text">3. 编程语言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3"><span class="nav-number">4.</span> <span class="nav-text">4. 网络相关</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">knowyuse</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.0.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
