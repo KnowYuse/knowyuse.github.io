@@ -5,17 +5,29 @@
   
 
   
-  <title>ky的学习笔记</title>
+  <title>消息队列学习笔记 | ky的学习笔记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="你陪了我多少年，花开花落，一路上起起跌跌">
-<meta property="og:type" content="website">
-<meta property="og:title" content="ky的学习笔记">
-<meta property="og:url" content="https://blog.knowyuse.top/index.html">
+  <meta name="description" content="1 基础概念1.1 什么是Exactly-once(精确一次)语义在分布式系统中，任何节点都有可能出现异常甚至宕机。在 消息队列中也一样，当 Producer 在生产消息时，可能会发生 Broker 宕机不可用，或者网络突然中断等异常情况。根据在发生异常时 Producer 处理消息的方式，系统可以具备以下三种消息语义。 1.1.1 At-least-once(至少一次)语义Producer 通过">
+<meta property="og:type" content="article">
+<meta property="og:title" content="消息队列学习笔记">
+<meta property="og:url" content="https://blog.knowyuse.top/2021/10/25/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="ky的学习笔记">
-<meta property="og:description" content="你陪了我多少年，花开花落，一路上起起跌跌">
+<meta property="og:description" content="1 基础概念1.1 什么是Exactly-once(精确一次)语义在分布式系统中，任何节点都有可能出现异常甚至宕机。在 消息队列中也一样，当 Producer 在生产消息时，可能会发生 Broker 宕机不可用，或者网络突然中断等异常情况。根据在发生异常时 Producer 处理消息的方式，系统可以具备以下三种消息语义。 1.1.1 At-least-once(至少一次)语义Producer 通过">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ftp.knowyuse.top/j3gficicyOvatVXIXkwUJKf2Aeicx3wiaJpM2R2zibAd9FvMBUmzAkCLINyycgrTUw12Tx7P3umdxQvNePnFr50VicJg.jpg">
+<meta property="og:image" content="https://ftp.knowyuse.top/j3gficicyOvatVXIXkwUJKf2Aeicx3wiaJpMHIwKhrwaN1wyPdSgh0HAuYRzYPf8zWmOicWu8V6C1DG0k395ribHtydQ.jpg">
+<meta property="og:image" content="https://ftp.knowyuse.top/j3gficicyOvatVXIXkwUJKf2Aeicx3wiaJpMFjJttO64Gycvdru0Fniaicw8ey5j16gnWUiczfcibvgxWoTowlSt9WwVmQ.jpg">
+<meta property="og:image" content="https://ftp.knowyuse.top/j3gficicyOvatVXIXkwUJKf2Aeicx3wiaJpMbHbQL09Tml7licJFibG4EmyufWMMrL5I1K8ibGKQLMMcJv38XJyhWdj9g.jpg">
+<meta property="og:image" content="https://ftp.knowyuse.top/1154e434-bf79-4d76-99f8-9ba3edf5d077.jpg">
+<meta property="article:published_time" content="2021-10-25T06:12:00.000Z">
+<meta property="article:modified_time" content="2021-10-31T11:45:26.267Z">
 <meta property="article:author" content="knowyuse">
+<meta property="article:tag" content="消息队列">
+<meta property="article:tag" content="kafka">
+<meta property="article:tag" content="RocketMQ">
+<meta property="article:tag" content="Pulsar">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ftp.knowyuse.top/j3gficicyOvatVXIXkwUJKf2Aeicx3wiaJpM2R2zibAd9FvMBUmzAkCLINyycgrTUw12Tx7P3umdxQvNePnFr50VicJg.jpg">
   
     <link rel="alternate" href="/atom.xml" title="ky的学习笔记" type="application/atom+xml">
   
@@ -64,9 +76,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-消息队列学习笔记" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-消息队列学习笔记" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/10/25/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="article-date">
   <time datetime="2021-10-25T06:12:00.000Z" itemprop="datePublished">2021-10-25</time>
@@ -83,8 +93,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/10/25/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">消息队列学习笔记</a>
+    <h1 class="article-title" itemprop="name">
+      消息队列学习笔记
     </h1>
   
 
@@ -146,146 +156,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-Docker学习笔记" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/10/25/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="article-date">
-  <time datetime="2021-10-25T06:08:00.000Z" itemprop="datePublished">2021-10-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/10/25/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Docker学习笔记</a>
-    </h1>
+    <a href="/2021/10/25/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Docker学习笔记</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://blog.knowyuse.top/2021/10/25/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-id="ckvf8xxik0000b0w4bmzk62ww" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-  
-    <article id="post-Redis学习笔记" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/10/25/Redis%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="article-date">
-  <time datetime="2021-10-25T06:01:00.000Z" itemprop="datePublished">2021-10-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/10/25/Redis%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Redis学习笔记</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="1-内存模型"><a href="#1-内存模型" class="headerlink" title="1. 内存模型"></a>1. 内存模型</h2><p>通过<code>info memory</code>命令查看内存的使用情况。</p>
-<ul>
-<li>used_memory: 从Redis角度使用了多少内存，即Redis分配器分配的内存总量（单位是字节），包括使用的虚拟内存（即swap）；</li>
-<li>used_memory_rss: 从操作系统角度实际使用量，即Redis进程占据操作系统的内存（单位是字节），包括进程运行本身需要的内存、内存碎片等，不包括虚拟内存。一般情况下used_memory_rss都要比used_memory大，因为Redis频繁删除读写等操作使得内存碎片较多，而虚拟内存的使用一般是非极端情况下是不怎么使用的；</li>
-<li>mem_fragmentation_ratio: 即内存碎片比率，该值是used_memory_rss / used_memory的比值；mem_fragmentation_ratio一般大于1，且该值越大，内存碎片比例越大。如果mem_fragmentation_ratio&lt;1，说明Redis使用了虚拟内存，由于虚拟内存的媒介是磁盘，比内存速度要慢很多，当这种情况出现时，应该及时排查，如果内存不足应该及时处理，如增加Redis节点、增加Redis服务器的内存、优化应用等。一般来说，mem_fragmentation_ratio在1.03左右是比较健康的状态（对于jemalloc来说）；</li>
-<li>mem_allocator: 即Redis使用的内存分配器，一般默认是jemalloc。</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://blog.knowyuse.top/2021/10/25/Redis%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-id="ckvf8xxir0001b0w44su39nkr" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-技术好文" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/10/25/%E6%8A%80%E6%9C%AF%E5%A5%BD%E6%96%87/" class="article-date">
-  <time datetime="2021-10-25T05:22:00.000Z" itemprop="datePublished">2021-10-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/10/25/%E6%8A%80%E6%9C%AF%E5%A5%BD%E6%96%87/">技术好文</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="1-中间件"><a href="#1-中间件" class="headerlink" title="1. 中间件"></a>1. 中间件</h2><ul>
-<li><img align="left" src="https://img.shields.io/badge/read-finished-green"/><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/k8sA6XPrp80JiNbuwKaVfg">消息队列背后的设计思想</a></li>
-<li><img align="left" src="https://img.shields.io/badge/read-finished-green"/><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/XslSlWWD1oSZMOz35sUTVA">浅谈 RocketMQ、Kafka、Pulsar 的事务消息</a></li>
-<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/-MXA4T-ei_U5ewXUNZ0QdQ">分布式消息队列</a></li>
-<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/CWjPigYjnREPXTiIRXI6MA">MongoDB 基础浅谈</a></li>
-<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/k8agEub4qmhm3kX_TpETrA">这篇Redis文章，图灵看了都说好</a></li>
-</ul>
-<h2 id="2-系统架构相关"><a href="#2-系统架构相关" class="headerlink" title="2.系统架构相关"></a>2.系统架构相关</h2><ul>
-<li><img align="left" src="https://img.shields.io/badge/read-finished-green"/><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/jLkuNy-M72vIVuFUFmF2NQ">弹性伸缩</a></li>
-<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/mUF0AEncu3T2yDqKyt-0Ow">Kubernetes 入门&amp;进阶实战</a></li>
-<li><img align="left" src="https://img.shields.io/badge/read-finished-green"/><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/STdtEcqTkQvtiSZnWpFevA">异地多活</a></li>
-</ul>
-<h2 id="3-编程语言"><a href="#3-编程语言" class="headerlink" title="3. 编程语言"></a>3. 编程语言</h2><ul>
-<li><img align="left" src="https://img.shields.io/badge/read-finished-green"/><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/IBTq0EspL5tlLupPDwcbEQ">原来 Lamda 表达式是这样写的</a></li>
-</ul>
-<h2 id="4-网络相关"><a href="#4-网络相关" class="headerlink" title="4. 网络相关"></a>4. 网络相关</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/du7mFM1FbbR2m2pz8c7rdA">破玩意 | 用 HTTPS 传纸条</a></li>
-<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/2z7NaoYEgbZ_hDxbcbMdYw">叮咚 | HTTPS 的分支和主干</a></li>
-<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/k7hI4PTtZxB5mNciCU5Z3A">今天我抓了个 HTTPS 的包</a></li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://blog.knowyuse.top/2021/10/25/%E6%8A%80%E6%9C%AF%E5%A5%BD%E6%96%87/" data-id="ckvf8xxit0002b0w4fuiff64h" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
 
 </section>
         
