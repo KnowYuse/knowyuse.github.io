@@ -1823,7 +1823,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #20fb47;
+  background: #2e3952;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3122,7 +3122,7 @@ pre .javascript .function {
   }
 }
 body {
-  background: "https://ftp.knowyuse.top/10468fe1-2c14-4774-8ad8-3646f8c1155f.jpg";
+  background: url("/images/10468fe1-2c14-4774-8ad8-3646f8c1155f.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   backend-size: cover;
