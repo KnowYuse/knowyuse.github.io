@@ -195,6 +195,94 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.knowyuse.top/2021/11/09/%E8%AE%A4%E8%AF%86-MySQL-%E5%92%8C-Redis-%E7%9A%84%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://ftp.knowyuse.top/8a5099748288d5cf2fcd4fa12b8b8976.jpg">
+      <meta itemprop="name" content="knowyuse">
+      <meta itemprop="description" content="或许是不知梦的缘故，流离之人追逐幻影">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ky的学习笔记">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/11/09/%E8%AE%A4%E8%AF%86-MySQL-%E5%92%8C-Redis-%E7%9A%84%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">认识 MySQL 和 Redis 的数据一致性问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-11-09 09:12:00 / 修改时间：09:53:15" itemprop="dateCreated datePublished" datetime="2021-11-09T09:12:00+08:00">2021-11-09</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>685</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/GU3cbUkI84IMwttDz16P3w">原文链接</a><br><img src="https://ftp.knowyuse.top/c82cd020-c975-49bf-86de-a9f8d03cc2b3.jpg"></p>
+<ul>
+<li>针对读写缓存：<img src="https://ftp.knowyuse.top/daef082d-6008-447b-96b4-e0f360c5d68d.jpg"></li>
+<li>针对只读缓存：<img src="https://ftp.knowyuse.top/2e87dd0a-f5c6-4304-9553-2ec9f9bacbec.jpg"></li>
+</ul>
+<p><strong>较为通用的一致性策略拟定：</strong></p>
+<p>在并发场景下，使用 “更新数据库 + 更新缓存” 需要用分布式锁保证缓存和数据一致性，且可能存在”缓存资源浪费“和”机器性能浪费“的情况；一般推荐使用 “更新数据库 + 删除缓存” 的方案。如果根据需要，热点数据较多，可以使用 “更新数据库 + 更新缓存” 策略。</p>
+<p>在 “更新数据库 + 删除缓存” 的方案中，推荐使用推荐用 “先更新数据库，再删除缓存” 策略，因为先删除缓存可能会导致大量请求落到数据库，而且延迟双删的时间很难评估。在 “先更新数据库，再删除缓存” 策略中，可以使用“消息队列+重试机制” 的方案保证缓存的删除。并通过 “订阅 binlog” 进行缓存比对，加上一层保障。</p>
+<p>此外，需要通过初始化缓存预热、多数据源触发、延迟消息比对等策略进行辅助和补偿。【多种数据更新触发源：定时任务扫描，业务系统 MQ、binlog 变更 MQ，相互之间作为互补来保证数据不会漏更新】</p>
+<p><strong>需要注意的其他问题</strong></p>
+<ul>
+<li>k-v 大小的合理设置</li>
+<li>Redis key 大小设计：由于网络的一次传输 MTU 最大为 1500 字节，所以为了保证高效的性能，建议单个 k-v 大小不超过 1KB，一次网络传输就能完成，避免多次网络交互；k-v 是越小性能越好Redis </li>
+<li>热 key：（1） 当业务遇到单个读热 key，通过增加副本来提高读能力或是用 hashtag 把 key 存多份在多个分片中；（2）当业务遇到单个写热 key，需业务拆分这个 key 的功能，属于设计不合理- 当业务遇到热分片，即多个热 key 在同一个分片上导致单分片 cpu 高，可通过 hashtag 方式打散</li>
+<li>避免其他问题导致缓存服务器崩溃，进而简直导致数据一致性策略失效<img src="https://ftp.knowyuse.top/2edc651c-4f93-4152-8e16-b7bb5dc9c5bb.jpg"></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.knowyuse.top/2021/11/04/MySQL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -822,7 +910,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-11-02 15:56:41" itemprop="dateModified" datetime="2021-11-02T15:56:41+08:00">2021-11-02</time>
+                <time title="修改时间：2021-11-08 21:41:12" itemprop="dateModified" datetime="2021-11-08T21:41:12+08:00">2021-11-08</time>
               </span>
 
           <br>
@@ -831,7 +919,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>212</span>
+              <span>233</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -856,6 +944,7 @@
 <li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/-MXA4T-ei_U5ewXUNZ0QdQ">分布式消息队列</a></li>
 <li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/CWjPigYjnREPXTiIRXI6MA">MongoDB 基础浅谈</a></li>
 <li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/k8agEub4qmhm3kX_TpETrA">这篇Redis文章，图灵看了都说好</a></li>
+<li><img align="left" src="https://img.shields.io/badge/read-finished-green"/><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/GU3cbUkI84IMwttDz16P3w">认识 MySQL 和 Redis 的数据一致性问题</a></li>
 </ul>
 <h2 id="2-系统架构相关"><a href="#2-系统架构相关" class="headerlink" title="2.系统架构相关"></a>2.系统架构相关</h2><ul>
 <li><img align="left" src="https://img.shields.io/badge/read-finished-green"/><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/jLkuNy-M72vIVuFUFmF2NQ">弹性伸缩</a></li>
@@ -955,7 +1044,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -991,7 +1080,7 @@
   <div class="widget-wrap">
     <div id="myCanvasContainer" class="widget tagcloud">
       <canvas width="250" height="250" id="resCanvas" style="width:100%">
-        <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mybatis-plus/" rel="tag">mybatis-plus</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="tag">消息队列</a><span class="tag-list-count">1</span></li></ul>
+        <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mybatis-plus/" rel="tag">mybatis-plus</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="tag">消息队列</a><span class="tag-list-count">1</span></li></ul>
       </canvas>
     </div>
   </div>
@@ -1029,7 +1118,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3 分钟</span>
+    <span title="站点阅读时长">4 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
