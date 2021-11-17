@@ -49,6 +49,14 @@
       </tags>
   </entry>
   <entry>
+    <title>Shell学习笔记</title>
+    <url>/2021/11/17/Shell%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<ul>
+<li>批量查找替换</li>
+</ul>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">find path -name *|xargs sed -i &quot;s/aaaa/bbbbb/g&quot;</span><br></pre></td></tr></table></figure>]]></content>
+  </entry>
+  <entry>
     <title>微信公众号开发学习笔记</title>
     <url>/2021/11/04/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h2 id="1-配置微信公众号"><a href="#1-配置微信公众号" class="headerlink" title="1 配置微信公众号"></a>1 配置微信公众号</h2>]]></content>
