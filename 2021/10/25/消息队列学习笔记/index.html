@@ -20,12 +20,12 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"blog.knowyuse.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDownIn","post_body":"fadeInDownIn","coll_header":"fadeInLeftIn","sidebar":"slideDownBigOut"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="消息队列学习笔记">
+<meta name="description" content="基础概念  什么是Exactly-once(精确一次)语义 在分布式系统中，任何节点都有可能出现异常甚至宕机。在 消息队列中也一样，当 Producer 在生产消息时，可能会发生 Broker 宕机不可用，或者网络突然中断等异常情况。根据在发生异常时 Producer 处理消息的方式，系统可以具备以下三种消息语义。  At-least-once(至少一次)语义 Producer 通过接收 Br">
 <meta property="og:type" content="article">
 <meta property="og:title" content="消息队列学习笔记">
 <meta property="og:url" content="https://blog.knowyuse.top/2021/10/25/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="ky的学习笔记">
-<meta property="og:description" content="消息队列学习笔记">
+<meta property="og:description" content="基础概念  什么是Exactly-once(精确一次)语义 在分布式系统中，任何节点都有可能出现异常甚至宕机。在 消息队列中也一样，当 Producer 在生产消息时，可能会发生 Broker 宕机不可用，或者网络突然中断等异常情况。根据在发生异常时 Producer 处理消息的方式，系统可以具备以下三种消息语义。  At-least-once(至少一次)语义 Producer 通过接收 Br">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://ftp.knowyuse.top/j3gficicyOvatVXIXkwUJKf2Aeicx3wiaJpM2R2zibAd9FvMBUmzAkCLINyycgrTUw12Tx7P3umdxQvNePnFr50VicJg.jpg">
 <meta property="og:image" content="https://ftp.knowyuse.top/j3gficicyOvatVXIXkwUJKf2Aeicx3wiaJpMHIwKhrwaN1wyPdSgh0HAuYRzYPf8zWmOicWu8V6C1DG0k395ribHtydQ.jpg">
@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://ftp.knowyuse.top/j3gficicyOvatVXIXkwUJKf2Aeicx3wiaJpMbHbQL09Tml7licJFibG4EmyufWMMrL5I1K8ibGKQLMMcJv38XJyhWdj9g.jpg">
 <meta property="og:image" content="https://ftp.knowyuse.top/1154e434-bf79-4d76-99f8-9ba3edf5d077.jpg">
 <meta property="article:published_time" content="2021-10-25T06:12:00.000Z">
-<meta property="article:modified_time" content="2021-11-18T14:25:52.678Z">
+<meta property="article:modified_time" content="2021-11-18T15:06:38.612Z">
 <meta property="article:author" content="knowyuse">
 <meta property="article:tag" content="消息队列">
 <meta name="twitter:card" content="summary">
@@ -153,7 +153,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="nav-number">1.</span> <span class="nav-text"> 消息队列学习笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text"> 1 基础概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#11-%E4%BB%80%E4%B9%88%E6%98%AFexactly-once%E7%B2%BE%E7%A1%AE%E4%B8%80%E6%AC%A1%E8%AF%AD%E4%B9%89"><span class="nav-number">1.1.1.</span> <span class="nav-text"> 1.1 什么是Exactly-once(精确一次)语义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#111-at-least-once%E8%87%B3%E5%B0%91%E4%B8%80%E6%AC%A1%E8%AF%AD%E4%B9%89"><span class="nav-number">1.1.1.1.</span> <span class="nav-text"> 1.1.1 At-least-once(至少一次)语义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#112-at-most-once%E6%9C%80%E5%A4%9A%E4%B8%80%E6%AC%A1%E8%AF%AD%E4%B9%89"><span class="nav-number">1.1.1.2.</span> <span class="nav-text"> 1.1.2 At-most-once(最多一次)语义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#113-exactly-once%E7%B2%BE%E7%A1%AE%E4%B8%80%E6%AC%A1%E8%AF%AD%E4%B9%89"><span class="nav-number">1.1.1.3.</span> <span class="nav-text"> 1.1.3 Exactly-once(精确一次)语义</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-kafka"><span class="nav-number">1.2.</span> <span class="nav-text"> 2 Kafka</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-rocketmq"><span class="nav-number">1.3.</span> <span class="nav-text"> 3 RocketMQ</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-pulsar"><span class="nav-number">1.4.</span> <span class="nav-text"> 4 Pulsar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E8%83%8C%E5%90%8E%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3"><span class="nav-number">1.5.</span> <span class="nav-text"> 5 消息队列背后的设计思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E6%B5%85%E8%B0%88-rocketmq-kafka-pulsar-%E7%9A%84%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF"><span class="nav-number">1.6.</span> <span class="nav-text"> 6 浅谈 RocketMQ、Kafka、Pulsar 的事务消息</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#61-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1"><span class="nav-number">1.6.1.</span> <span class="nav-text"> 6.1 分布式事务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#62-rocketmq-%E7%9A%84%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF"><span class="nav-number">1.6.2.</span> <span class="nav-text"> 6.2 RocketMQ 的事务消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#63-kafka-%E7%9A%84%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF"><span class="nav-number">1.6.3.</span> <span class="nav-text"> 6.3 Kafka 的事务消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#64-pulsar-%E7%9A%84%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF"><span class="nav-number">1.6.4.</span> <span class="nav-text"> 6.4 Pulsar 的事务消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#65-%E7%BB%93%E8%AE%BA"><span class="nav-number">1.6.5.</span> <span class="nav-text"> 6.5 结论</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text"> 基础概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFexactly-once%E7%B2%BE%E7%A1%AE%E4%B8%80%E6%AC%A1%E8%AF%AD%E4%B9%89"><span class="nav-number">1.1.</span> <span class="nav-text"> 什么是Exactly-once(精确一次)语义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#at-least-once%E8%87%B3%E5%B0%91%E4%B8%80%E6%AC%A1%E8%AF%AD%E4%B9%89"><span class="nav-number">1.1.1.</span> <span class="nav-text"> At-least-once(至少一次)语义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#at-most-once%E6%9C%80%E5%A4%9A%E4%B8%80%E6%AC%A1%E8%AF%AD%E4%B9%89"><span class="nav-number">1.1.2.</span> <span class="nav-text"> At-most-once(最多一次)语义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exactly-once%E7%B2%BE%E7%A1%AE%E4%B8%80%E6%AC%A1%E8%AF%AD%E4%B9%89"><span class="nav-number">1.1.3.</span> <span class="nav-text"> Exactly-once(精确一次)语义</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kafka"><span class="nav-number">2.</span> <span class="nav-text"> Kafka</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rocketmq"><span class="nav-number">3.</span> <span class="nav-text"> RocketMQ</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pulsar"><span class="nav-number">4.</span> <span class="nav-text"> Pulsar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E8%83%8C%E5%90%8E%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3"><span class="nav-number">5.</span> <span class="nav-text"> 消息队列背后的设计思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%85%E8%B0%88-rocketmq-kafka-pulsar-%E7%9A%84%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF"><span class="nav-number">6.</span> <span class="nav-text"> 浅谈 RocketMQ、Kafka、Pulsar 的事务消息</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1"><span class="nav-number">6.1.</span> <span class="nav-text"> 分布式事务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rocketmq-%E7%9A%84%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF"><span class="nav-number">6.2.</span> <span class="nav-text"> RocketMQ 的事务消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kafka-%E7%9A%84%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF"><span class="nav-number">6.3.</span> <span class="nav-text"> Kafka 的事务消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pulsar-%E7%9A%84%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF"><span class="nav-number">6.4.</span> <span class="nav-text"> Pulsar 的事务消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-number">6.5.</span> <span class="nav-text"> 结论</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -268,7 +268,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-11-18 22:25:52" itemprop="dateModified" datetime="2021-11-18T22:25:52+08:00">2021-11-18</time>
+        <time title="修改时间：2021-11-18 23:06:38" itemprop="dateModified" datetime="2021-11-18T23:06:38+08:00">2021-11-18</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -294,7 +294,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.7k</span>
+      <span>2.6k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -312,34 +312,33 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="消息队列学习笔记"><a class="markdownIt-Anchor" href="#消息队列学习笔记"></a> 消息队列学习笔记</h1>
-<span id="more"></span>
-<h2 id="1-基础概念"><a class="markdownIt-Anchor" href="#1-基础概念"></a> 1 基础概念</h2>
-<h3 id="11-什么是exactly-once精确一次语义"><a class="markdownIt-Anchor" href="#11-什么是exactly-once精确一次语义"></a> 1.1 什么是Exactly-once(精确一次)语义</h3>
+        <span id="more"></span>
+<h2 id="基础概念"><a class="markdownIt-Anchor" href="#基础概念"></a> 基础概念</h2>
+<h3 id="什么是exactly-once精确一次语义"><a class="markdownIt-Anchor" href="#什么是exactly-once精确一次语义"></a> 什么是Exactly-once(精确一次)语义</h3>
 <p>在分布式系统中，任何节点都有可能出现异常甚至宕机。在 消息队列中也一样，当 Producer 在生产消息时，可能会发生 Broker 宕机不可用，或者网络突然中断等异常情况。根据在发生异常时 Producer 处理消息的方式，系统可以具备以下三种消息语义。</p>
-<h4 id="111-at-least-once至少一次语义"><a class="markdownIt-Anchor" href="#111-at-least-once至少一次语义"></a> 1.1.1 At-least-once(至少一次)语义</h4>
+<h4 id="at-least-once至少一次语义"><a class="markdownIt-Anchor" href="#at-least-once至少一次语义"></a> At-least-once(至少一次)语义</h4>
 <p>Producer 通过接收 Broker 的 ACK(消息确认)通知来确保消息成功写入 Topic。然而，当 Producer 接收 ACK 通知超时，或者收到 Broker 出错信息时，会尝试重新发送消息。如果 Broker 正好在成功把消息写入到 Topic，但还没有给 Producer 发送 ACK 时宕机，Producer 重新发送的消息会被再次写入到 Topic，最终导致消息被重复分发至 Consumer。即：<strong>消息不会丢失，但有可能被重复发送</strong>。</p>
-<h4 id="112-at-most-once最多一次语义"><a class="markdownIt-Anchor" href="#112-at-most-once最多一次语义"></a> 1.1.2 At-most-once(最多一次)语义</h4>
+<h4 id="at-most-once最多一次语义"><a class="markdownIt-Anchor" href="#at-most-once最多一次语义"></a> At-most-once(最多一次)语义</h4>
 <p>当 Producer 在接收 ACK 超时，或者收到 Broker 出错信息时不重发消息，那就有可能导致这条消息丢失，没有写入到 Topic 中，也不会被 Consumer 消费到。在某些场景下，为了避免发生重复消费，我们可以容许消息丢失的发生。即：<strong>消息可能会丢失，但绝不会被重复发送</strong>。</p>
-<h4 id="113-exactly-once精确一次语义"><a class="markdownIt-Anchor" href="#113-exactly-once精确一次语义"></a> 1.1.3 Exactly-once(精确一次)语义</h4>
+<h4 id="exactly-once精确一次语义"><a class="markdownIt-Anchor" href="#exactly-once精确一次语义"></a> Exactly-once(精确一次)语义</h4>
 <p><strong>Exactly-once 语义保证了即使 Producer 多次发送同一条消息到服务端，服务端也仅仅会记录一次。</strong> Exactly-once 语义是最可靠的，同时也是最难理解的。Exactly-once 语义需要消息队列服务端，消息生产端和消费端应用三者的协同才能实现。比如，当消费端应用成功消费并且 ACK 了一条消息之后，又把消费位点回滚到之前的一个消息 ID，那么从那个消息 ID 往后的所有消息都会被消费端应用重新消费到。即：<strong>消息不会丢失，也不会被重复发送</strong>。</p>
-<h2 id="2-kafka"><a class="markdownIt-Anchor" href="#2-kafka"></a> 2 Kafka</h2>
+<h2 id="kafka"><a class="markdownIt-Anchor" href="#kafka"></a> Kafka</h2>
 <p>Apache Kafka 是由 Apache 软件基金会开发的一个开源消息系统项目，由 Scala 写成。Kafka 最初是由 LinkedIn 开发，并于 2011 年初开源。2012 年 10 月从 Apache Incubator 毕业。该项目的目标是为处理实时数据提供一个统一、高通量、低等待的平台。Kafka 是一个分布式的、分区的、多复本的日志提交服务。它通过一种独一无二的设计提供了一个消息系统的功能，其整体架构图如下所示。</p>
 <div align=center><img src="https://ftp.knowyuse.top/j3gficicyOvatVXIXkwUJKf2Aeicx3wiaJpM2R2zibAd9FvMBUmzAkCLINyycgrTUw12Tx7P3umdxQvNePnFr50VicJg.jpg" height=400 width=600></div>
 <center style="color:#000;">kafka整体架构图</center>
-<h2 id="3-rocketmq"><a class="markdownIt-Anchor" href="#3-rocketmq"></a> 3 RocketMQ</h2>
+<h2 id="rocketmq"><a class="markdownIt-Anchor" href="#rocketmq"></a> RocketMQ</h2>
 <p>Apache RocketMQ 是一个分布式消息和流媒体平台，具有低延迟、强一致、高性能和可靠性、万亿级容量和灵活的可扩展性。它有借鉴 Kafka 的设计思想，但不是 kafka 的拷贝，其整体架构图如下所示。</p>
 <div align=center><img src="https://ftp.knowyuse.top/j3gficicyOvatVXIXkwUJKf2Aeicx3wiaJpMHIwKhrwaN1wyPdSgh0HAuYRzYPf8zWmOicWu8V6C1DG0k395ribHtydQ.jpg" height=400 width=600></div>
 <center style="color:#000;">RocketMQ架构图</center>
-<h2 id="4-pulsar"><a class="markdownIt-Anchor" href="#4-pulsar"></a> 4 Pulsar</h2>
+<h2 id="pulsar"><a class="markdownIt-Anchor" href="#pulsar"></a> Pulsar</h2>
 <p>Apache Pulsar 是 Apache 软件基金会顶级项目，是下一代云原生分布式消息流平台，集消息、存储、轻量化函数式计算为一体，采用计算与存储分离架构设计，支持多租户、持久化存储、多机房跨区域数据复制，具有强一致性、高吞吐、低延时及高可扩展性等流数据存储特性，被看作是云原生时代实时消息流传输、存储和计算最佳解决方案，其整体架构图如下所示。</p>
 <div align=center><img src="https://ftp.knowyuse.top/j3gficicyOvatVXIXkwUJKf2Aeicx3wiaJpMFjJttO64Gycvdru0Fniaicw8ey5j16gnWUiczfcibvgxWoTowlSt9WwVmQ.jpg" height=400 width=600></div>
 <center style="color:#000;">Pulsar架构图</center>
-<h2 id="5-消息队列背后的设计思想"><a class="markdownIt-Anchor" href="#5-消息队列背后的设计思想"></a> 5 消息队列背后的设计思想</h2>
+<h2 id="消息队列背后的设计思想"><a class="markdownIt-Anchor" href="#消息队列背后的设计思想"></a> 消息队列背后的设计思想</h2>
 <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/k8sA6XPrp80JiNbuwKaVfg">参考链接</a></p>
-<h2 id="6-浅谈-rocketmq-kafka-pulsar-的事务消息"><a class="markdownIt-Anchor" href="#6-浅谈-rocketmq-kafka-pulsar-的事务消息"></a> 6 浅谈 RocketMQ、Kafka、Pulsar 的事务消息</h2>
+<h2 id="浅谈-rocketmq-kafka-pulsar-的事务消息"><a class="markdownIt-Anchor" href="#浅谈-rocketmq-kafka-pulsar-的事务消息"></a> 浅谈 RocketMQ、Kafka、Pulsar 的事务消息</h2>
 <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/XslSlWWD1oSZMOz35sUTVA">参考链接</a></p>
-<h3 id="61-分布式事务"><a class="markdownIt-Anchor" href="#61-分布式事务"></a> 6.1 分布式事务</h3>
+<h3 id="分布式事务"><a class="markdownIt-Anchor" href="#分布式事务"></a> 分布式事务</h3>
 <p>分布式事务是指事务的参与者、支持事务的服务器、资源服务器以及事务管理器分别位于不同的分布式系统的不同节点之上。分布式事务通常用于在分布式系统中保证不同节点之间的数据一致性。</p>
 <p>解决方案一般有以下几种：</p>
 <ul>
@@ -352,15 +351,15 @@
 <div align=center><img src="https://ftp.knowyuse.top/j3gficicyOvatVXIXkwUJKf2Aeicx3wiaJpMbHbQL09Tml7licJFibG4EmyufWMMrL5I1K8ibGKQLMMcJv38XJyhWdj9g.jpg" height=400 width=600></div>
 <center style="color:#000;">消息事务示意图</center>
 <p>虽然上面的方案能够完成 A 和 B 的操作，但是 A 和 B 并不是强一致的，而是**最终一致(Eventually consistent)**的。</p>
-<h3 id="62-rocketmq-的事务消息"><a class="markdownIt-Anchor" href="#62-rocketmq-的事务消息"></a> 6.2 RocketMQ 的事务消息</h3>
+<h3 id="rocketmq-的事务消息"><a class="markdownIt-Anchor" href="#rocketmq-的事务消息"></a> RocketMQ 的事务消息</h3>
 <p>RocketMQ 采用了 2PC 的思想来实现了提交事务消息，同时增加一个补偿逻辑来处理二阶段超时或者失败的消息，流程如下图所示：</p>
 <div align=center><img src="https://ftp.knowyuse.top/1154e434-bf79-4d76-99f8-9ba3edf5d077.jpg" height=400 width=600></div>
 <center style="color:#000;">RocketMQ事务消息</center>
-<h3 id="63-kafka-的事务消息"><a class="markdownIt-Anchor" href="#63-kafka-的事务消息"></a> 6.3 Kafka 的事务消息</h3>
+<h3 id="kafka-的事务消息"><a class="markdownIt-Anchor" href="#kafka-的事务消息"></a> Kafka 的事务消息</h3>
 <p>Kafka 的事务基本上是配合其幂等机制来实现 Exactly-once语义的。</p>
-<h3 id="64-pulsar-的事务消息"><a class="markdownIt-Anchor" href="#64-pulsar-的事务消息"></a> 6.4 Pulsar 的事务消息</h3>
+<h3 id="pulsar-的事务消息"><a class="markdownIt-Anchor" href="#pulsar-的事务消息"></a> Pulsar 的事务消息</h3>
 <p>Pulsar 这里提供的事务区别于 RocketMQ 中 2PC 那种事务的实现方式，没有本地事务回查的机制，更类似于 Kafka 的事务实现机制。Apache Pulsar 中的事务主要用来保证类似 Pulsar Functions 这种流计算场景中 Exactly-once 语义的实现。</p>
-<h3 id="65-结论"><a class="markdownIt-Anchor" href="#65-结论"></a> 6.5 结论</h3>
+<h3 id="结论"><a class="markdownIt-Anchor" href="#结论"></a> 结论</h3>
 <p>RocketMQ 和 Kafka/Pulsar 的事务消息实用的场景是不一样的。</p>
 <p>RocketMQ 中的事务，它解决的问题是，确保执行本地事务和发消息这两个操作，要么都成功，要么都失败。并且 RocketMQ 增加了一个事务反查的机制，来尽量提高事务执行的成功率和数据一致性。</p>
 <p>Kafka 中的事务，它解决的问题是，确保在一个事务中发送的多条消息，要么都成功，要么都失败。（这里面的多条消息不一定要在同一个主题和分区中，可以是发往多个主题和分区的消息）当然也可以在 kafka 事务执行过程中开启本地事务来实现类似 RocketMQ 事务消息的效果，但是 Kafka 是没有事务消息反查机制的，它是直接抛出异常的，用户可以根据异常来实现自己的重试等方法保证事务正常运行。</p>
@@ -423,7 +422,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">5k</span>
+    <span title="站点总字数">4k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
