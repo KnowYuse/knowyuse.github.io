@@ -52,9 +52,11 @@
     <title>Shell学习笔记</title>
     <url>/2021/11/17/Shell%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h2 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h2><ul>
-<li>cut</li>
+<li>cut<ul>
 <li>-d 指定分隔符 </li>
 <li>-f 指定列，从1开始</li>
+</ul>
+</li>
 <li>grep</li>
 </ul>
 <h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><ul>
