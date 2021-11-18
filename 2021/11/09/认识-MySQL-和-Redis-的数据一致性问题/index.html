@@ -153,7 +153,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A4%E8%AF%86-MySQL-%E5%92%8C-Redis-%E7%9A%84%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">认识 MySQL 和 Redis 的数据一致性问题</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A4%E8%AF%86-mysql-%E5%92%8C-redis-%E7%9A%84%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text"> 认识 MySQL 和 Redis 的数据一致性问题</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -303,12 +303,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="认识-MySQL-和-Redis-的数据一致性问题"><a href="#认识-MySQL-和-Redis-的数据一致性问题" class="headerlink" title="认识 MySQL 和 Redis 的数据一致性问题"></a>认识 MySQL 和 Redis 的数据一致性问题</h1><span id="more"></span>
-
-<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/GU3cbUkI84IMwttDz16P3w">原文链接</a><br><img src="https://ftp.knowyuse.top/c82cd020-c975-49bf-86de-a9f8d03cc2b3.jpg"></p>
+        <h1 id="认识-mysql-和-redis-的数据一致性问题"><a class="markdownIt-Anchor" href="#认识-mysql-和-redis-的数据一致性问题"></a> 认识 MySQL 和 Redis 的数据一致性问题</h1>
+<span id="more"></span>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/GU3cbUkI84IMwttDz16P3w">原文链接</a><br />
+<img src="https://ftp.knowyuse.top/c82cd020-c975-49bf-86de-a9f8d03cc2b3.jpg"></p>
 <ul>
-<li>针对读写缓存：<img src="https://ftp.knowyuse.top/daef082d-6008-447b-96b4-e0f360c5d68d.jpg"></li>
-<li>针对只读缓存：<img src="https://ftp.knowyuse.top/2e87dd0a-f5c6-4304-9553-2ec9f9bacbec.jpg"></li>
+<li>针对读写缓存：<br />
+<img src="https://ftp.knowyuse.top/daef082d-6008-447b-96b4-e0f360c5d68d.jpg"></li>
+<li>针对只读缓存：<br />
+<img src="https://ftp.knowyuse.top/2e87dd0a-f5c6-4304-9553-2ec9f9bacbec.jpg"></li>
 </ul>
 <p><strong>较为通用的一致性策略拟定：</strong></p>
 <p>在并发场景下，使用 “更新数据库 + 更新缓存” 需要用分布式锁保证缓存和数据一致性，且可能存在”缓存资源浪费“和”机器性能浪费“的情况；一般推荐使用 “更新数据库 + 删除缓存” 的方案。如果根据需要，热点数据较多，可以使用 “更新数据库 + 更新缓存” 策略。</p>
@@ -316,12 +319,14 @@
 <p>此外，需要通过初始化缓存预热、多数据源触发、延迟消息比对等策略进行辅助和补偿。【多种数据更新触发源：定时任务扫描，业务系统 MQ、binlog 变更 MQ，相互之间作为互补来保证数据不会漏更新】</p>
 <p><strong>需要注意的其他问题</strong></p>
 <ul>
-<li>k-v 大小的合理设置<ul>
-<li>Redis key 大小设计：由于网络的一次传输 MTU 最大为 1500 字节，所以为了保证高效的性能，建议单个 k-v 大小不超过 1KB，一次网络传输就能完成，避免多次网络交互；k-v 是越小性能越好Redis </li>
+<li>k-v 大小的合理设置
+<ul>
+<li>Redis key 大小设计：由于网络的一次传输 MTU 最大为 1500 字节，所以为了保证高效的性能，建议单个 k-v 大小不超过 1KB，一次网络传输就能完成，避免多次网络交互；k-v 是越小性能越好Redis</li>
 <li>热 key：（1） 当业务遇到单个读热 key，通过增加副本来提高读能力或是用 hashtag 把 key 存多份在多个分片中；（2）当业务遇到单个写热 key，需业务拆分这个 key 的功能，属于设计不合理- 当业务遇到热分片，即多个热 key 在同一个分片上导致单分片 cpu 高，可通过 hashtag 方式打散</li>
 </ul>
 </li>
-<li>避免其他问题导致缓存服务器崩溃，进而简直导致数据一致性策略失效<img src="https://ftp.knowyuse.top/2edc651c-4f93-4152-8e16-b7bb5dc9c5bb.jpg"></li>
+<li>避免其他问题导致缓存服务器崩溃，进而简直导致数据一致性策略失效<br />
+<img src="https://ftp.knowyuse.top/2edc651c-4f93-4152-8e16-b7bb5dc9c5bb.jpg"></li>
 </ul>
 
     </div>

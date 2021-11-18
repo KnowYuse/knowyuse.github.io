@@ -147,7 +147,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="nav-number">1.</span> <span class="nav-text">Redis学习笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.1.</span> <span class="nav-text">1. 内存模型</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#redis%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="nav-number">1.</span> <span class="nav-text"> Redis学习笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.1.</span> <span class="nav-text"> 1. 内存模型</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -306,9 +306,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="Redis学习笔记"><a href="#Redis学习笔记" class="headerlink" title="Redis学习笔记"></a>Redis学习笔记</h1><span id="more"></span>
-
-<h2 id="1-内存模型"><a href="#1-内存模型" class="headerlink" title="1. 内存模型"></a>1. 内存模型</h2><p>通过<code>info memory</code>命令查看内存的使用情况。</p>
+        <h1 id="redis学习笔记"><a class="markdownIt-Anchor" href="#redis学习笔记"></a> Redis学习笔记</h1>
+<span id="more"></span>
+<h2 id="1-内存模型"><a class="markdownIt-Anchor" href="#1-内存模型"></a> 1. 内存模型</h2>
+<p>通过<code>info memory</code>命令查看内存的使用情况。</p>
 <ul>
 <li>used_memory: 从Redis角度使用了多少内存，即Redis分配器分配的内存总量（单位是字节），包括使用的虚拟内存（即swap）；</li>
 <li>used_memory_rss: 从操作系统角度实际使用量，即Redis进程占据操作系统的内存（单位是字节），包括进程运行本身需要的内存、内存碎片等，不包括虚拟内存。一般情况下used_memory_rss都要比used_memory大，因为Redis频繁删除读写等操作使得内存碎片较多，而虚拟内存的使用一般是非极端情况下是不怎么使用的；</li>

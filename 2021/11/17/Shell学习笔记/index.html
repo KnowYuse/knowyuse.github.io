@@ -147,7 +147,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Shell%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="nav-number">1.</span> <span class="nav-text">Shell学习笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="nav-number">1.1.</span> <span class="nav-text">基本命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%94%E7%94%A8"><span class="nav-number">1.2.</span> <span class="nav-text">应用</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#shell%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="nav-number">1.</span> <span class="nav-text"> Shell学习笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="nav-number">1.1.</span> <span class="nav-text"> 基本命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%94%E7%94%A8"><span class="nav-number">1.2.</span> <span class="nav-text"> 应用</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -297,17 +297,22 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="Shell学习笔记"><a href="#Shell学习笔记" class="headerlink" title="Shell学习笔记"></a>Shell学习笔记</h1><span id="more"></span>
-<h2 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h2><ul>
-<li>cut<ul>
-<li>-d 指定分隔符 </li>
+        <h1 id="shell学习笔记"><a class="markdownIt-Anchor" href="#shell学习笔记"></a> Shell学习笔记</h1>
+<span id="more"></span>
+<h2 id="基本命令"><a class="markdownIt-Anchor" href="#基本命令"></a> 基本命令</h2>
+<ul>
+<li>cut
+<ul>
+<li>-d 指定分隔符</li>
 <li>-f 指定列，从1开始</li>
 </ul>
 </li>
 <li>grep</li>
 </ul>
-<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><ul>
-<li>批量查找替换<ul>
+<h2 id="应用"><a class="markdownIt-Anchor" href="#应用"></a> 应用</h2>
+<ul>
+<li>批量查找替换
+<ul>
 <li><code>find path -name *|xargs sed -i &quot;s/aaaa/bbbbb/g&quot;</code></li>
 <li><code>grep -r &quot;xxxx&quot; *|cut -d &quot;:&quot; -f 1|xargs sed -i &quot;s/aaaaa/bbbbbb/g&quot;</code></li>
 </ul>
