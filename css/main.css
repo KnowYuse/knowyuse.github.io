@@ -2878,3 +2878,10 @@ mark.search-keyword {
     padding: 10px 12px;
   }
 }
+body {
+  background: url("https://ftp.knowyuse.top/10468fe1-2c14-4774-8ad8-3646f8c1155f.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: 50% 50%;
+  background-size: 100% 100%;
+}
