@@ -91,15 +91,19 @@
 </ul>
 <h2 id="3-编程语言"><a href="#3-编程语言" class="headerlink" title="3. 编程语言"></a>3. 编程语言</h2><ul>
 <li><img align="left" src="https://img.shields.io/badge/read-finished-green"/><a href="https://mp.weixin.qq.com/s/IBTq0EspL5tlLupPDwcbEQ">原来 Lamda 表达式是这样写的</a></li>
-<li><a href="https://mp.weixin.qq.com/s/q6BfOINeqgm5nffrHu4kQA">从根本上了解异步编程体系</a></li>
+<li><img align="left" src="https://img.shields.io/badge/read-finished-green"/><a href="https://mp.weixin.qq.com/s/q6BfOINeqgm5nffrHu4kQA">从根本上了解异步编程体系</a></li>
+<li><a href="https://mp.weixin.qq.com/s/-T6X-qxjNNonaMJ4hjF3gQ">从 RPC 到服务化框架设计</a></li>
 </ul>
 <h2 id="4-网络相关"><a href="#4-网络相关" class="headerlink" title="4. 网络相关"></a>4. 网络相关</h2><ul>
 <li><a href="https://mp.weixin.qq.com/s/du7mFM1FbbR2m2pz8c7rdA">破玩意 | 用 HTTPS 传纸条</a></li>
 <li><a href="https://mp.weixin.qq.com/s/2z7NaoYEgbZ_hDxbcbMdYw">叮咚 | HTTPS 的分支和主干</a></li>
 <li><a href="https://mp.weixin.qq.com/s/k7hI4PTtZxB5mNciCU5Z3A">今天我抓了个 HTTPS 的包</a></li>
+</ul>
+<h2 id="5-操作系统"><a href="#5-操作系统" class="headerlink" title="5. 操作系统"></a>5. 操作系统</h2><ul>
+<li><a href="https://mp.weixin.qq.com/s/diKfeu1-Lr4ZA5Ky_66TZg">Linux I/O 那些事儿</a></li>
 <li><a href="https://zhuanlan.zhihu.com/p/428461187">Linux系统TCP内核参数优化总结</a></li>
 </ul>
-<h2 id="5-操作系统"><a href="#5-操作系统" class="headerlink" title="5. 操作系统"></a>5. 操作系统</h2>]]></content>
+]]></content>
   </entry>
   <entry>
     <title>消息队列学习笔记</title>
