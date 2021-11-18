@@ -3,7 +3,8 @@
   <entry>
     <title>Docker学习笔记</title>
     <url>/2021/10/25/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<h1 id="Docker学习笔记"><a href="#Docker学习笔记" class="headerlink" title="Docker学习笔记"></a>Docker学习笔记</h1><span id="more"></span>
+]]></content>
       <tags>
         <tag>docker</tag>
       </tags>
@@ -11,12 +12,14 @@
   <entry>
     <title>Gradle学习笔记</title>
     <url>/2021/11/03/Gradle%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h2 id="1-配置Gradle"><a href="#1-配置Gradle" class="headerlink" title="1 配置Gradle"></a>1 配置Gradle</h2><h2 id="2-Gradle语法"><a href="#2-Gradle语法" class="headerlink" title="2 Gradle语法"></a>2 Gradle语法</h2>]]></content>
+    <content><![CDATA[<h1 id="Gradle学习笔记"><a href="#Gradle学习笔记" class="headerlink" title="Gradle学习笔记"></a>Gradle学习笔记</h1><span id="more"></span>
+
+<h2 id="1-配置Gradle"><a href="#1-配置Gradle" class="headerlink" title="1 配置Gradle"></a>1 配置Gradle</h2><h2 id="2-Gradle语法"><a href="#2-Gradle语法" class="headerlink" title="2 Gradle语法"></a>2 Gradle语法</h2>]]></content>
   </entry>
   <entry>
     <title>MySQL学习笔记</title>
     <url>/2021/11/04/MySQL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<h1 id="MySQL学习笔记"><a href="#MySQL学习笔记" class="headerlink" title="MySQL学习笔记"></a>MySQL学习笔记</h1><span id="more"></span>]]></content>
       <tags>
         <tag>mysql</tag>
       </tags>
@@ -24,7 +27,9 @@
   <entry>
     <title>Mybatis-Plus学习笔记</title>
     <url>/2021/11/04/Mybatis-Plus%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<p><a href="https://mp.baomidou.com/guide/">官方文档</a></p>
+    <content><![CDATA[<h1 id="Mybatis-Plus学习笔记"><a href="#Mybatis-Plus学习笔记" class="headerlink" title="Mybatis-Plus学习笔记"></a>Mybatis-Plus学习笔记</h1><span id="more"></span>
+
+<p><a href="https://mp.baomidou.com/guide/">官方文档</a></p>
 ]]></content>
       <tags>
         <tag>mybatis-plus</tag>
@@ -33,7 +38,9 @@
   <entry>
     <title>Redis学习笔记</title>
     <url>/2021/10/25/Redis%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h2 id="1-内存模型"><a href="#1-内存模型" class="headerlink" title="1. 内存模型"></a>1. 内存模型</h2><p>通过<code>info memory</code>命令查看内存的使用情况。</p>
+    <content><![CDATA[<h1 id="Redis学习笔记"><a href="#Redis学习笔记" class="headerlink" title="Redis学习笔记"></a>Redis学习笔记</h1><span id="more"></span>
+
+<h2 id="1-内存模型"><a href="#1-内存模型" class="headerlink" title="1. 内存模型"></a>1. 内存模型</h2><p>通过<code>info memory</code>命令查看内存的使用情况。</p>
 <ul>
 <li>used_memory: 从Redis角度使用了多少内存，即Redis分配器分配的内存总量（单位是字节），包括使用的虚拟内存（即swap）；</li>
 <li>used_memory_rss: 从操作系统角度实际使用量，即Redis进程占据操作系统的内存（单位是字节），包括进程运行本身需要的内存、内存碎片等，不包括虚拟内存。一般情况下used_memory_rss都要比used_memory大，因为Redis频繁删除读写等操作使得内存碎片较多，而虚拟内存的使用一般是非极端情况下是不怎么使用的；</li>
@@ -75,12 +82,17 @@
   <entry>
     <title>微信公众号开发学习笔记</title>
     <url>/2021/11/04/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h2 id="1-配置微信公众号"><a href="#1-配置微信公众号" class="headerlink" title="1 配置微信公众号"></a>1 配置微信公众号</h2>]]></content>
+    <content><![CDATA[<h1 id="微信公众号开发学习笔记"><a href="#微信公众号开发学习笔记" class="headerlink" title="微信公众号开发学习笔记"></a>微信公众号开发学习笔记</h1><span id="more"></span>
+
+<h2 id="1-配置微信公众号"><a href="#1-配置微信公众号" class="headerlink" title="1 配置微信公众号"></a>1 配置微信公众号</h2>]]></content>
   </entry>
   <entry>
     <title>技术好文</title>
     <url>/2021/10/25/%E6%8A%80%E6%9C%AF%E5%A5%BD%E6%96%87/</url>
-    <content><![CDATA[<h2 id="1-中间件"><a href="#1-中间件" class="headerlink" title="1. 中间件"></a>1. 中间件</h2><ul>
+    <content><![CDATA[<h1 id="技术好文"><a href="#技术好文" class="headerlink" title="技术好文"></a>技术好文</h1><p>[TOC]</p>
+<span id="more"></span>
+
+<h2 id="1-中间件"><a href="#1-中间件" class="headerlink" title="1. 中间件"></a>1. 中间件</h2><ul>
 <li><img align="left" src="https://img.shields.io/badge/read-finished-green"/><a href="https://mp.weixin.qq.com/s/k8sA6XPrp80JiNbuwKaVfg">消息队列背后的设计思想</a></li>
 <li><img align="left" src="https://img.shields.io/badge/read-finished-green"/><a href="https://mp.weixin.qq.com/s/XslSlWWD1oSZMOz35sUTVA">浅谈 RocketMQ、Kafka、Pulsar 的事务消息</a></li>
 <li><a href="https://mp.weixin.qq.com/s/-MXA4T-ei_U5ewXUNZ0QdQ">分布式消息队列</a></li>
@@ -113,7 +125,8 @@
   <entry>
     <title>消息队列学习笔记</title>
     <url>/2021/10/25/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h2 id="1-基础概念"><a href="#1-基础概念" class="headerlink" title="1 基础概念"></a>1 基础概念</h2><h3 id="1-1-什么是Exactly-once-精确一次-语义"><a href="#1-1-什么是Exactly-once-精确一次-语义" class="headerlink" title="1.1 什么是Exactly-once(精确一次)语义"></a>1.1 什么是Exactly-once(精确一次)语义</h3><p>在分布式系统中，任何节点都有可能出现异常甚至宕机。在 消息队列中也一样，当 Producer 在生产消息时，可能会发生 Broker 宕机不可用，或者网络突然中断等异常情况。根据在发生异常时 Producer 处理消息的方式，系统可以具备以下三种消息语义。</p>
+    <content><![CDATA[<h1 id="消息队列学习笔记"><a href="#消息队列学习笔记" class="headerlink" title="消息队列学习笔记"></a>消息队列学习笔记</h1><span id="more"></span>
+<h2 id="1-基础概念"><a href="#1-基础概念" class="headerlink" title="1 基础概念"></a>1 基础概念</h2><h3 id="1-1-什么是Exactly-once-精确一次-语义"><a href="#1-1-什么是Exactly-once-精确一次-语义" class="headerlink" title="1.1 什么是Exactly-once(精确一次)语义"></a>1.1 什么是Exactly-once(精确一次)语义</h3><p>在分布式系统中，任何节点都有可能出现异常甚至宕机。在 消息队列中也一样，当 Producer 在生产消息时，可能会发生 Broker 宕机不可用，或者网络突然中断等异常情况。根据在发生异常时 Producer 处理消息的方式，系统可以具备以下三种消息语义。</p>
 <h4 id="1-1-1-At-least-once-至少一次-语义"><a href="#1-1-1-At-least-once-至少一次-语义" class="headerlink" title="1.1.1 At-least-once(至少一次)语义"></a>1.1.1 At-least-once(至少一次)语义</h4><p>Producer 通过接收 Broker 的 ACK(消息确认)通知来确保消息成功写入 Topic。然而，当 Producer 接收 ACK 通知超时，或者收到 Broker 出错信息时，会尝试重新发送消息。如果 Broker 正好在成功把消息写入到 Topic，但还没有给 Producer 发送 ACK 时宕机，Producer 重新发送的消息会被再次写入到 Topic，最终导致消息被重复分发至 Consumer。即：<strong>消息不会丢失，但有可能被重复发送</strong>。</p>
 <h4 id="1-1-2-At-most-once-最多一次-语义"><a href="#1-1-2-At-most-once-最多一次-语义" class="headerlink" title="1.1.2 At-most-once(最多一次)语义"></a>1.1.2 At-most-once(最多一次)语义</h4><p>当 Producer 在接收 ACK 超时，或者收到 Broker 出错信息时不重发消息，那就有可能导致这条消息丢失，没有写入到 Topic 中，也不会被 Consumer 消费到。在某些场景下，为了避免发生重复消费，我们可以容许消息丢失的发生。即：<strong>消息可能会丢失，但绝不会被重复发送</strong>。</p>
 <h4 id="1-1-3-Exactly-once-精确一次-语义"><a href="#1-1-3-Exactly-once-精确一次-语义" class="headerlink" title="1.1.3 Exactly-once(精确一次)语义"></a>1.1.3 Exactly-once(精确一次)语义</h4><p><strong>Exactly-once 语义保证了即使 Producer 多次发送同一条消息到服务端，服务端也仅仅会记录一次。</strong> Exactly-once 语义是最可靠的，同时也是最难理解的。Exactly-once 语义需要消息队列服务端，消息生产端和消费端应用三者的协同才能实现。比如，当消费端应用成功消费并且 ACK 了一条消息之后，又把消费位点回滚到之前的一个消息 ID，那么从那个消息 ID 往后的所有消息都会被消费端应用重新消费到。即：<strong>消息不会丢失，也不会被重复发送</strong>。</p>
@@ -166,7 +179,9 @@
   <entry>
     <title>认识 MySQL 和 Redis 的数据一致性问题</title>
     <url>/2021/11/09/%E8%AE%A4%E8%AF%86-MySQL-%E5%92%8C-Redis-%E7%9A%84%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<p><a href="https://mp.weixin.qq.com/s/GU3cbUkI84IMwttDz16P3w">原文链接</a><br><img src="https://ftp.knowyuse.top/c82cd020-c975-49bf-86de-a9f8d03cc2b3.jpg"></p>
+    <content><![CDATA[<h1 id="认识-MySQL-和-Redis-的数据一致性问题"><a href="#认识-MySQL-和-Redis-的数据一致性问题" class="headerlink" title="认识 MySQL 和 Redis 的数据一致性问题"></a>认识 MySQL 和 Redis 的数据一致性问题</h1><span id="more"></span>
+
+<p><a href="https://mp.weixin.qq.com/s/GU3cbUkI84IMwttDz16P3w">原文链接</a><br><img src="https://ftp.knowyuse.top/c82cd020-c975-49bf-86de-a9f8d03cc2b3.jpg"></p>
 <ul>
 <li>针对读写缓存：<img src="https://ftp.knowyuse.top/daef082d-6008-447b-96b4-e0f360c5d68d.jpg"></li>
 <li>针对只读缓存：<img src="https://ftp.knowyuse.top/2e87dd0a-f5c6-4304-9553-2ec9f9bacbec.jpg"></li>
